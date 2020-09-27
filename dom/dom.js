@@ -433,6 +433,7 @@ document.body.appendChild($ul3);
 //su objetivo es estructurar un modelo generar elementos o estructuras del dom de manera dinamica
 /************************************************************* */
 
+/*
 const $cards = document.querySelector(".cards"),
   //crear una variable que apunte al template
   //se captura por el id que se le definio
@@ -478,3 +479,209 @@ cardContent.forEach((el) => {
 });
 
 $cards.appendChild($fragment);
+
+*/
+
+/************************************************************ */
+// Curso JavaScript: 70. DOM: Modificando Elementos (Old Style)
+/************************************************************ */
+
+/*
+//reemplazar un elemento con el metodo replaceChild
+
+const $cards = document.querySelector(".cards"),
+  $newCard = document.createElement("figure"),
+  $cloneCards = $cards.cloneNode(true);
+
+$newCard.innerHTML = `
+    <img src="https://placeimg.com/200/200/any" alt="Any"/>
+    <figcaption>Any</figcaption>
+    `;
+
+$newCard.classList.add("card");
+
+//el metodo replaceCild recibe dos parametros,
+//el elemento que se va a agregar
+//el segundo, el elemento que se va a reemplazar
+// $cards.replaceChild($newCard, $cards.children[2]);
+
+//insertar antes del primer elemento con el metodo insertBefore, este recibe dos parametros
+//el nodo que se va a insertar y el nodo que usa como referencia
+// $cards.insertBefore($newCard, $cards.firstElementChild);
+
+//eliminar un nodo con el metodo removeChild,
+//recibe como parametro el elemento que se va a eliminar
+// $cards.removeChild($cards.lastElementChild);
+
+//clonar un nodo dinamicamente, Desde un nodo html, (sin template html)
+//cloneNide,  recibe un parametro
+//true para que clone todo el contenido
+//false solo clona las etiqueta contenedora del contenido
+
+document.body.appendChild($cloneCards);
+
+*/
+/******************************************************** */
+// Curso JavaScript: 71. DOM: Modificando Elementos (Cool Style)
+/******************************************************** */
+
+/* 
+.insertAdjacent...
+    .insertAdjacentElement(position,el) (nodo de tipo elemento)
+    .insertAdjacentHTML(position,html) (texto que sea en formato html)
+    .insertAdjacentText(position,text) (texto)
+
+posiciones:
+    beforebegin (hermano anterior)
+    afterbegin (primer hijo)
+    beforeend (ultimo hijo)
+    afterend  (hermano siguiente)
+*/
+
+/*
+const $cards = document.querySelector(".cards"),
+  $newCard = document.createElement("figure");
+
+$contentCard = `
+    <img src="https://placeimg.com/200/200/any" alt="Any"/>
+    <figcaption></figcaption>
+    `;
+
+$newCard.classList.add("card");
+
+//insertar el contenido html a la nueva tarjeta con insertAdjacentHTML
+$newCard.insertAdjacentHTML("beforeend", $contentCard);
+
+//insertar el text en el figcaption con insertAdjacentText
+$newCard.querySelector("figcaption").insertAdjacentText("afterbegin", "Any");
+
+//antes del elemento cards
+// $cards.insertAdjacentElement("beforebegin", $newCard);
+
+//como primer hijo del elemento cards
+// $cards.insertAdjacentElement("afterbegin", $newCard);
+
+//como ultimo hijo dek ekemento cards
+$cards.insertAdjacentElement("beforeend", $newCard);
+
+// como hermano siguiente del elemento cards
+// $cards.insertAdjacentElement("afterend", $newCard);
+
+// metodos de jquery para agregar elementos ahora soportado por JS
+//  prepend lo agrega como primer hijo
+$cards.prepend($newCard);
+
+//before lo agrega como hermano anterior
+$cards.before($newCard);
+
+//append lo agrega como ultimo hijo del nodo referencia
+$cards.append($newCard);
+
+//after como hermano posterior
+$cards.after($newCard);
+
+*/
+
+/******************************************************************* */
+// Curso JavaScript: 72. DOM: Manejadores de Eventos
+/******************************************************************* */
+
+//cuando una funcion es usada como manejador de eventos,
+// esta nos permite acceder a la palabra reservada event
+// la cual contiene toda la informacion al evento que se esta ejecutando
+// siendo elementos importantes el type (tipo de evento)
+// y el target (elemento que disparo el evento)
+
+function holaMundo() {
+  alert("Hola Mundo");
+  console.log(event);
+}
+
+// Evento Semantico
+const $eventoSemantico = document.getElementById("evento-semantico"),
+  $eventoMultiple = document.getElementById("evento-multiple");
+//cuando se va a manejar un evento semantico,
+// se iguala la funcion que maneja el evento al elemento que lo va a disparar,
+//el nombre de la funcion va sin los parentesis para que no se ejecute al cargar el navegador
+
+$eventoSemantico.onclick = holaMundo;
+
+//esta tecnica de eventos semanticos, solo permite ejecutar una sola funcion por cada evento
+//en este caso ya no se ejecutaria la funcion holaMundo definida anteriormente
+//sino que se ejecutaria la nueva funcion anonima a la cual se le asigna el evento
+$eventoSemantico.onclick = function (e) {
+  alert("Manejador de Evento Semantico");
+  console.log(e);
+  console.log(event);
+};
+
+//Manejadores de eventos multiples para definir diferentes funciones a un mismo elemento
+//utilizando addEventListener
+//recibe el tiplo de evento como primer parametro
+//el listener, que es la funcion que se va a ejeutar, solo el nombre de la funcion sin parentesis
+$eventoMultiple.addEventListener("click", holaMundo);
+
+//en este caso se esta asignado una segunda funcion al mismo elemento del dom
+// y esta ves se pueden ejecutar ambas funciones ya que permite la ejecucion multiple
+//para el evento asignado a este elemento
+$eventoMultiple.addEventListener("click", (e) => {
+  alert("Manejador de Eventos Multiples");
+  console.log(e.type);
+  console.log(e.target);
+  console.log(e);
+});
+/*
+
+
+
+
+*/
+/*********************************************************************/
+// Curso JavaScript: 73. DOM: Eventos con Parámetros y Remover Eventos
+/*********************************************************************/
+function saludar(nombre = "Desconocid@") {
+  alert(`Hola ${nombre}`);
+  console.log(event);
+}
+
+//si se hace de esta manera la funcion maneajdora del evento que es saludar,
+//tomara el evento (event) como su parametro
+// $eventoMultiple.addEventListener("click", saludar);
+
+//para poder pasar parametros en los eventos a las funciones manejadora
+//se debe hacer uso de las arrow functions, ya que en ese caso
+//la funcion que maneja el evento sera la arrow function anonima
+//y esta ejecutará dentro de si a la funcion que invoquemos con los parametros respectivos
+$eventoMultiple.addEventListener("click", () => {
+  saludar();
+  saludar("Carlos");
+});
+
+//remover eventos solo funciona con manejadores multiples
+//Remover Eventos con removeEventListener
+
+const $eventoRemover = document.getElementById("evento-remover");
+
+/*
+$eventoRemover.addEventListener("dblclick", (e) => {
+  alert(`Removiendo Evento ${e.type}`);
+  console.log(e);
+});
+*/
+
+//removeEventListener recibe obligatoriamente dos parametros
+//el evento
+//la funcion a remover
+
+const removerDobleClick = (e) => {
+  alert(`Removiendo Evento ${e.type}`);
+  console.log(e);
+  $eventoRemover.removeEventListener("dblclick", removerDobleClick);
+  $eventoRemover.disabled = true;
+};
+
+//para remover un manejador de evento, esta funcion debe estar previamente declarada
+//bien sea como funcion declarada o expresada
+//no funciona con las arrows function
+
+$eventoRemover.addEventListener("dblclick", removerDobleClick);
