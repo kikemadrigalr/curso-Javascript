@@ -685,3 +685,92 @@ const removerDobleClick = (e) => {
 //no funciona con las arrows function
 
 $eventoRemover.addEventListener("dblclick", removerDobleClick);
+/*
+
+
+
+
+*/
+/****************************************************************/
+// Curso JavaScript: 74. DOM: Flujo de Eventos (Burbuja y Captura)
+/****************************************************************/
+//El flujo de los eventos va desde el elemento mas interno
+//al elemento mas externo, el cual se conoce como fase de burbuja
+//El flujo contrario puede ser accedido con un tercer parametro al metodo listener
+//colocando el tercer parametro en true se aplica el flujo desde
+//el elemento mas externo al elemento mas interno, conociendo este flujo
+//como flujo de captura
+
+const $divsEventos = document.querySelectorAll(".eventos-flujo div"),
+  $linkEventos = document.querySelector(".eventos-flujo a");
+/*
+  function flujoEventos(e) {
+  console.log(
+    `Hola te saludo ${this.className}, el click lo originó ${e.target.className}`
+  );
+
+  //stopPropagation permite detener la propagacion del evento en los
+  //elementos hijos o padres
+  e.stopPropagation();
+}
+
+console.log($divsEventos);
+
+$divsEventos.forEach((div) => {
+  //fase de burbuja
+  div.addEventListener("click", flujoEventos);
+  // div.addEventListener("click", flujoEventos, fasle);
+
+  //fase captura
+  //div.addEventListener("click", flujoEventos, true);
+
+  //el metodo addEventListener puede recibir como tercer parametro un
+  //capture hace referencia a la fase de los eventos
+  //once hace referencia a las veces que se ejecutara el evento
+  // div.addEventListener("click", flujoEventos, {
+  //   capture: false,
+  //   once: true,
+  // });
+});
+
+
+
+*/
+/************************************************************************************/
+// Curso JavaScript: 75. DOM: stopPropagation & preventDefault
+/************************************************************************************/
+// $linkEventos.addEventListener("click", (e) => {
+//   alert("Hola soy tu amigo y docente digital");
+
+//   //preventdefaul cancelaa la accion que tenga por defecto el elemento
+//   e.preventDefault();
+// });
+/*
+
+
+
+*/
+/*************************************************************/
+// Curso JavaScript: 76. DOM: Delegación de Eventos
+/*************************************************************/
+function flujoEventos(e) {
+  console.log(
+    `Hola te saludo ${this.className}, el click lo originó ${e.target.className}`
+  );
+}
+
+//se asigna el evento al elemento superior
+//en este caso body
+document.addEventListener("click", (e) => {
+  console.log("Click en", e.target);
+
+  if (e.target.matches(".eventos-flujo div")) {
+    flujoEventos(e);
+  }
+
+  //se busca el elemento donde sucedio el click con el metodo matches
+  if (e.target.matches(".eventos-flujo a")) {
+    alert("Hola soy tu amigo y docente digital");
+    e.preventDefault();
+  }
+});
