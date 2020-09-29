@@ -774,3 +774,132 @@ document.addEventListener("click", (e) => {
     e.preventDefault();
   }
 });
+/*
+
+
+
+*/
+/******************************************************************************************/
+// Curso JavaScript: 77. BOM: Propiedades y Eventos
+/******************************************************************************************/
+//Propiedades y metodos propias del navegador y que cuelgan del objeto windows
+/*
+//eventos del navegador
+window.addEventListener("resize", (e) => {
+  console.clear();
+  console.log("*******Evento Resize*******");
+  console.log(window.innerWidth); //ancho del viewport
+  console.log(window.innerHeight); //alto del viewport
+  console.log(window.outerWidth); //ancho de la pantalla
+  console.log(window.outerHeight); //alto de la pantalla
+  console.log(e);
+});
+
+window.addEventListener("scroll", () => {
+  console.clear();
+  console.log("*******Evento Scroll*******");
+  console.log(window.scrollX);
+  console.log(window.scrollY);
+});
+
+//identificar en que coordenadas de la pantalla se dibuja la ventana del navegador
+//load evento de carga de la ventana del navegador
+window.addEventListener("load", (e) => {
+  // console.clear();
+  console.log("*******Evento Load*******");
+  console.log(window.screenX);
+  console.log(window.screenY);
+  console.log(e);
+});
+
+//evento similiar a load, pero con mejoras de rendimiento.
+//es mas rapido para mostrar cosas apenas carga el navegador
+//al contrario de load, DOMContentLoaded no espera
+//a cargar hojas de estilos imagenes, scripts etc
+document.addEventListener("DOMContentLoaded", (e) => {
+  console.log("*******DOMContentLoaded*******");
+  console.log(window.screenX);
+  console.log(window.screenY);
+  console.log(e);
+}); 
+*/
+/**
+
+
+
+
+*/
+/*******************************************************************/
+// Curso JavaScript: 78. BOM: Métodos
+/*******************************************************************/
+// window.alert("Alerta");
+// window.confirm("Confirmacion");
+// window.prompt("Aviso");
+
+const $btnAbrir = document.getElementById("abrir-ventana"),
+  $btnCerrar = document.getElementById("cerrar-ventana"),
+  $btnImprimir = document.getElementById("imprimir-ventana");
+
+let ventana;
+
+$btnAbrir.addEventListener("click", () => {
+  ventana = window.open("https://aprendejavascript.org");
+});
+
+$btnCerrar.addEventListener("click", () => {
+  //si se ejecuta el metodo window.close o close,
+  // se cierra la ventana en la que estamos trabajando
+  // window.close()
+
+  // se debe utilizar la referencia que se guardó
+  // en la variable ventana al momento de ejecutar el metodo open
+  ventana.close();
+});
+
+$btnImprimir.addEventListener("click", () => {
+  window.print();
+}); /*
+
+
+
+
+*/
+/*********************************************************************/
+// Curso JavaScript: 79. BOM: Objetos: URL, Historial y Navegador
+/*********************************************************************/
+
+//objeto Location (URL)
+console.log("*********Objeto URL (Location)************");
+console.log(location);
+console.log(location.origin); //devuelve el nombre del origen de la pagina
+console.log(location.protocol); //devuelve el protocolo utilizado
+console.log(location.host); //devuelve el nombre del host o el dominio de la pagina incluido el puerto
+console.log(location.hostname); //devuelve solo el nombre del host
+console.log(location.port); //devuelve el puerto que utiliza, si es el puerto por defecto devuelve una cadena vacia
+console.log(location.href); //devueve toda la url
+console.log(location.hash); //devuelve solo la parte de la url que este despues dek un #
+console.log(location.pathname); //devuelve el archivo que se esta cargando
+console.log(location.search); //devuelve valores que se esten enviando por la url
+// location.reload() //recarga la pagina
+// location.assign //asignar una nueva url
+
+//Objeto History
+console.log("*********Objeto Historial (History)************");
+console.log(history); //guada el historial y el atributo
+console.log(history.length); //lengnt  guando uantas paginas hemos visitado
+history.back; // sirev para regresar en el historial, se le pasa un parametro numerico, que indica el numero de paginas
+history.forward; //sirve para avanzar en las paginas que se encuentras registradas en e historial, recbe como parametro el numero de las paginas a avanzar
+history.go; //permite ir directamente a una pagina del historial, recbe un numero negativo para ir hacia atras y uno positivo para ir adelante
+
+//obejto navigator
+console.log("*********Objeto Navegador (Navigator)************");
+console.log(navigator);
+console.log(navigator.connection);
+console.log(navigator.geolocation); //geolocalizacion
+console.log(navigator, MediaDevices); //dispositivos media, microfono, camara
+console.log(navigator.mimeTypes); //tipos de formato que acepta el navegador
+console.log(navigator.onLine); //verificar la conexion, si la pierde o la recupera
+console.log(navigator.serviceWorker); //API para hacer progresive webApp
+console.log(navigator.storage); //Api de almacenamiento webStorage, localStorage
+console.log(navigator.usb); //manipular dispositivos usb
+console.log(navigator.userAgent); //informacion del navegador que se esta conectando a la aplicacion
