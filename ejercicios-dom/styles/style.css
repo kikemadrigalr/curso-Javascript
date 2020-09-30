@@ -1,0 +1,96 @@
+:root {
+  --yellow-color: #f7df1e;
+  --gray-background: #f3f4f7;
+}
+
+html {
+  font-family: "Raleway", "sans-serif";
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--gray-background);
+}
+
+.cabecera {
+  background-color: var(--yellow-color);
+  width: auto;
+  min-height: 80px;
+  padding: 10px;
+}
+
+.cabecera h1 {
+  text-align: center;
+}
+
+.nav {
+  width: 100%;
+  height: 100%;
+  transform: translateX(-100%);
+  transition: transform 0.8s;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  overflow-x: hidden;
+  transition: 0.8s;
+  padding-top: 60px;
+  text-align: center;
+}
+
+.nav ul {
+  padding: 0;
+}
+
+.nav ul li {
+  list-style: none;
+  margin-right: 0;
+  /* border: solid 1px red; */
+}
+
+.nav ul li a {
+  text-decoration: none;
+  color: #ffffff;
+  font-size: 24px;
+  padding: 1rem;
+  display: block;
+}
+
+.nav ul li a:hover {
+  background-color: var(--yellow-color);
+  opacity: 0.8;
+  color: #000000;
+}
+
+.show {
+  transform: translateX(0);
+}
+
+.secciones {
+  top: 0;
+}
+
+.secciones div {
+  text-align: center;
+}
+
+#btn-hamburger {
+  position: relative;
+}
+.hamburger {
+  width: 80px;
+  height: 80px;
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+  position: fixed;
+  background-color: var(--yellow-color);
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.hamburger:focus {
+  outline: none;
+}
