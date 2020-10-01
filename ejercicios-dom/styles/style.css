@@ -15,6 +15,7 @@ body {
 }
 
 .cabecera {
+  position: sticky;
   background-color: var(--yellow-color);
   width: auto;
   min-height: 80px;
@@ -47,7 +48,6 @@ body {
 .nav ul li {
   list-style: none;
   margin-right: 0;
-  /* border: solid 1px red; */
 }
 
 .nav ul li a {
@@ -56,12 +56,14 @@ body {
   font-size: 24px;
   padding: 1rem;
   display: block;
+  font-weight: bold;
 }
 
 .nav ul li a:hover {
   background-color: var(--yellow-color);
   opacity: 0.8;
   color: #000000;
+  font-weight: bold;
 }
 
 .show {
@@ -76,19 +78,20 @@ body {
   text-align: center;
 }
 
-#btn-hamburger {
+/* #btn-hamburger {
   position: relative;
-}
+} */
+
 .hamburger {
-  width: 80px;
-  height: 80px;
-  position: absolute;
-  bottom: 30px;
-  right: 30px;
+  width: 5rem;
+  height: 5rem;
+  position: fixed;
+  bottom: 1vh;
+  right: 1vw;
   position: fixed;
   background-color: var(--yellow-color);
   border-radius: 50%;
-  z-index: 1;
+  z-index: 999;
 }
 
 .hamburger:focus {
