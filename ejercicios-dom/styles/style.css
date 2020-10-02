@@ -1,6 +1,7 @@
 :root {
   --yellow-color: #f7df1e;
   --gray-background: #f3f4f7;
+  --second-color: #005670;
 }
 
 html {
@@ -25,6 +26,8 @@ body {
 .cabecera h1 {
   text-align: center;
 }
+
+/* **************Menu Hamburguesa*********** */
 
 .nav {
   width: 100%;
@@ -96,4 +99,19 @@ body {
 
 .hamburger:focus {
   outline: none;
+}
+
+/************* Reloj **********/
+.reloj {
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.botones {
+  padding: 2rem;
+}
+
+.botones button {
+  padding: 0.5rem;
+  font-weight: bold;
 }

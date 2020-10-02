@@ -903,3 +903,5 @@ console.log(navigator.serviceWorker); //API para hacer progresive webApp
 console.log(navigator.storage); //Api de almacenamiento webStorage, localStorage
 console.log(navigator.usb); //manipular dispositivos usb
 console.log(navigator.userAgent); //informacion del navegador que se esta conectando a la aplicacion
+
+// setInterval(console.log("hola"), 1000);

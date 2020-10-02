@@ -1,4 +1,4 @@
-function hamburger() {
+export default function hamburger() {
   const $btnHamburger = document.querySelector(".hamburger"),
     $nav = document.querySelector(".nav");
 
@@ -12,5 +12,3 @@ function hamburger() {
     $btnHamburger.classList.toggle("is-active");
   });
 }
-
-hamburger();
