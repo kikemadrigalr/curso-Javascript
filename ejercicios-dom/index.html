@@ -10,6 +10,12 @@
       href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500&display=swap"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+      integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
+      crossorigin="anonymous"
+    />
   </head>
   <body>
     <header id="cabecera" class="cabecera">
@@ -19,7 +25,7 @@
     <nav id="nav" class="nav">
       <ul>
         <li><a href="#section-1">Reloj Digital Y Alarma Sonora</a></li>
-        <li><a href="#section-2">Sección 2</a></li>
+        <li><a href="#section-2">Eventos del Teclado</a></li>
         <li><a href="#section-3">Sección 3</a></li>
         <li><a href="#section-4">Sección 4</a></li>
         <li><a href="#section-5">Sección 5</a></li>
@@ -41,7 +47,7 @@
     </div>
 
     <section id="secciones" class="secciones">
-      <div id="section-1">
+      <div id="section-1" class="section-impar">
         <h2>Reloj Digital Y Alarma Sonora</h2>
 
         <div class="reloj">00:00:00</div>
@@ -56,30 +62,38 @@
           <button id="iniciar-alarma">Iniciar Alarma</button>
           <button id="stop-alarma">Detener Alarma</button>
         </div>
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
       </div>
 
-      <div id="section-2">
-        <h2>Sección 2</h2>
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
+      <div id="section-2" class="section-par">
+        <h2>Eventos del teclado</h2>
+
+        <h3>Presione las siguientes combnaciones para mostrar las alertas</h3>
+        <div id="alertas">
+          
+          <ul>
+            <li id="alert">  Alert: <code>alt + a</code>  </i></li>
+            <li id="promp">Prompt: <code>alt + p</code></li>
+            <li id="confirm">Confirm: <code>alt + c</code></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h3>Haz click sobre el recuadro para mover la bola</h3>
+        </div>
+        
+        <div id="camp" class="camp">
+          <div id="ball" class="ball"></div>
+        </div>
+        <div id="direcciones">
+          <h4>Utilice las teclas de dirección de su teclado</h4>
+          <ul>
+            <li><i class="fas fa-arrow-left"></i></li>
+            <li><i class="fas fa-arrow-up"></i></li>
+            <li><i class="fas fa-arrow-down"></i></li>
+            <li><i class="fas fa-arrow-right"></i></li>
+          </ul>
+        </div>
+        
       </div>
 
       <div id="section-3">

@@ -1,6 +1,7 @@
 :root {
   --yellow-color: #f7df1e;
   --gray-background: #f3f4f7;
+  --white-background: #ffffff;
   --second-color: #005670;
 }
 
@@ -12,7 +13,7 @@ html {
 body {
   margin: 0;
   padding: 0;
-  background-color: var(--gray-background);
+  background-color: var(--white-background);
 }
 
 .cabecera {
@@ -25,6 +26,17 @@ body {
 
 .cabecera h1 {
   text-align: center;
+}
+
+.section-impar {
+  background-color: var(--white-background);
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+.section-par {
+  background-color: var(--gray-background);
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
 
 /* **************Menu Hamburguesa*********** */
@@ -42,6 +54,7 @@ body {
   transition: 0.8s;
   padding-top: 60px;
   text-align: center;
+  z-index: 998;
 }
 
 .nav ul {
@@ -114,4 +127,47 @@ body {
 .botones button {
   padding: 0.5rem;
   font-weight: bold;
+}
+
+/*********** Eventos Teclado ***********/
+
+#direcciones ul li {
+  list-style: none;
+  font-size: 2rem;
+  display: inline-block;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.camp {
+  width: 80%;
+  height: 30vw;
+  background-color: var(--second-color);
+  border: solid 5px #222;
+  margin: auto;
+  position: relative;
+  z-index: 997;
+}
+
+.ball {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background-color: var(--yellow-color);
+  position: absolute;
+  opacity: 0.5;
+}
+
+#alertas ul li {
+  font-weight: bold;
+  list-style: none;
+  display: inline-block;
+  margin: 2rem;
+}
+
+#alertas ul li code {
+  padding: 1rem;
+  font-size: 1.5rem;
+  background-color: #222;
+  color: #fff;
 }
