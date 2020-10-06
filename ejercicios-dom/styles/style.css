@@ -146,7 +146,7 @@ body {
   border: solid 5px #222;
   margin: auto;
   position: relative;
-  z-index: 997;
+  z-index: 990;
 }
 
 .ball {
@@ -170,4 +170,34 @@ body {
   font-size: 1.5rem;
   background-color: #222;
   color: #fff;
+}
+
+/* ***********Button scroll********** */
+.scroll {
+  width: 5rem;
+  height: 5rem;
+  bottom: 1vh;
+  right: calc(5.25rem + 1vw);
+  position: fixed;
+  background-color: var(--yellow-color);
+  border-radius: 50%;
+  border: none;
+  z-index: 998;
+  opacity: 0;
+  transform: translate(0, 20vh);
+  transition: all 1s;
+  cursor: pointer;
+}
+
+.scroll span {
+  font-size: 2rem;
+}
+
+.scroll.visible {
+  opacity: 1;
+  transform: translate(0, 0vh);
+}
+
+.scroll:focus {
+  outline: none;
 }
