@@ -2,11 +2,11 @@ export default function scrollTop(btnScroll) {
   const $btnScroll = document.querySelector(btnScroll);
 
   window.addEventListener("scroll", (e) => {
-    if (window.scrollY > 500) {
+    if (window.scrollY > 600) {
       $btnScroll.classList.add("visible");
     }
 
-    if (window.scrollY < 500) {
+    if (window.scrollY < 600) {
       $btnScroll.classList.remove("visible");
     }
   });

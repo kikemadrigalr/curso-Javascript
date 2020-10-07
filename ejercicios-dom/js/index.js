@@ -3,6 +3,7 @@ import relojAlarma from "./reloj.js";
 import { mover, alertas } from "./teclado.js";
 import contador from "./contador.js";
 import scrollTop from "./scroll.js";
+import isDarkMode from "./dark-mode.js";
 
 document.addEventListener("DOMContentLoaded", (e) => {
   hamburger();
@@ -16,4 +17,5 @@ document.addEventListener("DOMContentLoaded", (e) => {
   alertas();
   contador(".counter");
   scrollTop(".scroll");
+  isDarkMode("#btn-dark", "#btn-moon");
 });
