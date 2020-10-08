@@ -12,10 +12,11 @@ d.addEventListener("DOMContentLoaded", (e) => {
   alarm("/assets/alarma.mp3", "#activar-alarma", "#desactivar-alarma");
   countDown("countdown", "Sep 7, 2021", "Feliz Cumpleaños Kike");
   scrollTopButton(".scroll-top-btn");
-  darktheme(".dark-theme-btn", "dark-mode");
 });
 
 d.addEventListener("keydown", (e) => {
   shortcuts(e);
   moveBall(e, ".ball", ".stage");
 });
+
+darktheme(".dark-theme-btn", "dark-mode");

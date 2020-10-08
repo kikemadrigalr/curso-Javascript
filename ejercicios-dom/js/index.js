@@ -4,8 +4,11 @@ import { mover, alertas } from "./teclado.js";
 import contador from "./contador.js";
 import scrollTop from "./scroll.js";
 import isDarkMode from "./dark-mode.js";
+import localConfig from "./local_config.js";
 
 document.addEventListener("DOMContentLoaded", (e) => {
+  // localStorage.clear();
+  localConfig();
   hamburger();
   relojAlarma(
     "#iniciar-reloj",
@@ -17,5 +20,6 @@ document.addEventListener("DOMContentLoaded", (e) => {
   alertas();
   contador(".counter");
   scrollTop(".scroll");
-  isDarkMode("#btn-dark", "#btn-moon");
 });
+
+isDarkMode("#btn-dark", "#btn-moon");
