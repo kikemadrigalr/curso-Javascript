@@ -5,6 +5,7 @@ import countDown from "./dom/cuenta_regresiva.js";
 import scrollTopButton from "./dom/button_scroll.js";
 import darktheme from "./dom/tema_oscuro.js";
 import responsiveMedia from "./dom/objeto_resposive.js";
+import responsiveTester from "./dom/prueba_responsive.js";
 
 const d = document;
 d.addEventListener("DOMContentLoaded", (e) => {
@@ -27,6 +28,7 @@ d.addEventListener("DOMContentLoaded", (e) => {
     `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3947.277792999292!2d115.44872021433297!3d-8.374312086747901!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd21cbe3748b2b7%3A0xbfc39798cd1bb4a!2sTemplo%20madre%20de%20Besakih!5e0!3m2!1ses!2sco!4v1602130555559!5m2!1ses!2sco" 
           width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" ></iframe>`
   );
+  responsiveTester("responsive-tester");
 });
 
 d.addEventListener("keydown", (e) => {

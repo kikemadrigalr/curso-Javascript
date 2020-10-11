@@ -27,7 +27,7 @@ export function mover(camp, ball) {
   let x = 0,
     y = 0;
 
-  console.log(square);
+  // console.log(square);
 
   $campEl.addEventListener("click", (e) => {
     $ballEl.style.opacity = 1;

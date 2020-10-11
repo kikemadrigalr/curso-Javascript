@@ -27,8 +27,8 @@
         <li><a href="#section-1">Reloj Digital Y Alarma Sonora</a></li>
         <li><a href="#section-2">Eventos del Teclado</a></li>
         <li><a href="#section-3">CountDown</a></li>
-        <li><a href="#section-4">Responsive Con JS</a></li>
-        <li><a href="#section-5">Sección 5</a></li>
+        <li><a href="#section-4">Responsive Con Javascript</a></li>
+        <li><a href="#section-5">Responsive Tester</a></li>
         <li><a href="#section-5">Sección 6</a></li>
       </ul>
     </nav>
@@ -114,27 +114,28 @@
         </div>
       </div>
 
-      <div id="section-4">
+      <div id="section-4" class="section-par">
         <h2>Responsive Con JS</h2>
         <div id="video"></div>
         <div id="mapa"></div>
       </div>
 
-      <div id="section-5">
-        <h2>Sección 5</h2>
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
+      <div id="section-5" class="section-impar">
+        <h2>Responsive Tester</h2>
+        <div id="formulario">
+          <form id="form-tester">
+            <input type="url" name="url" id="url" placeholder="url" required>
+            <input type="number" name="ancho" id="ancho" placeholder="Width" required>
+            <input type="number" name="alto" id="alto" placeholder="Height" required>
+            <button type="submit" class="btn-submit" id="btn-submit">Probar</button>
+            <button class="btn-close" id="btn-close">Cerrar</button>
+          </form>
+        </div>
       </div>
+      
     </section>
 
     <script src="./js/index.js" type="module"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous"></script>
   </body>
 </html>
