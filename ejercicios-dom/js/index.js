@@ -6,6 +6,7 @@ import scrollTop from "./scroll.js";
 import isDarkMode from "./dark-mode.js";
 import renderVideoMap from "./video_map.js";
 import responsiveTester from "./responsive_tester.js";
+import userDeviceInfo from "./deteccion_dispositivos.js";
 
 document.addEventListener("DOMContentLoaded", (e) => {
   // localStorage.clear();
@@ -33,6 +34,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
     width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" ></iframe>`
   );
   responsiveTester("#form-tester", "btn-submit", "btn-close");
+  userDeviceInfo("user-device");
 });
 
 isDarkMode("#btn-dark", "#btn-moon");
