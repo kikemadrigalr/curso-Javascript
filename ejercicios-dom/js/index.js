@@ -7,6 +7,7 @@ import isDarkMode from "./dark-mode.js";
 import renderVideoMap from "./video_map.js";
 import responsiveTester from "./responsive_tester.js";
 import userDeviceInfo from "./deteccion_dispositivos.js";
+import networkStatus from "./deteccion_conexion.js";
 
 document.addEventListener("DOMContentLoaded", (e) => {
   // localStorage.clear();
@@ -35,6 +36,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
   );
   responsiveTester("#form-tester", "btn-submit", "btn-close");
   userDeviceInfo("user-device");
+  networkStatus("on-line", "off-line");
 });
 
 isDarkMode("#btn-dark", "#btn-moon");
