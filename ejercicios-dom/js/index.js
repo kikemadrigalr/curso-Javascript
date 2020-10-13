@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
   );
   responsiveTester("#form-tester", "btn-submit", "btn-close");
   userDeviceInfo("user-device");
-  networkStatus("on-line", "off-line");
 });
 
 isDarkMode("#btn-dark", "#btn-moon");
+networkStatus("on-line", "off-line");

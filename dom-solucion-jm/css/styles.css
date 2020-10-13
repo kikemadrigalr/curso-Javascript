@@ -40,6 +40,7 @@ img {
   padding: 1rem;
   background-color: var(--main-color);
   color: var(--second-color);
+  z-index: 999;
 }
 
 .header h1 {
@@ -199,4 +200,22 @@ img {
 .dark-mode {
   background-color: var(--second-color);
   color: var(--main-color);
+}
+
+/* Deteccion de conexion */
+.online,
+.offline {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  padding: 1rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+  background-color: #1b5e20;
+  color: #ffffff;
+}
+
+.offline {
+  background-color: #b71c1c;
 }

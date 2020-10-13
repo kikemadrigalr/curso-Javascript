@@ -6,6 +6,7 @@ import scrollTopButton from "./dom/button_scroll.js";
 import darktheme from "./dom/tema_oscuro.js";
 import responsiveMedia from "./dom/objeto_resposive.js";
 import responsiveTester from "./dom/prueba_responsive.js";
+import networkStatus from "./dom/deteccion_red.js";
 
 const d = document;
 d.addEventListener("DOMContentLoaded", (e) => {
@@ -37,3 +38,4 @@ d.addEventListener("keydown", (e) => {
 });
 
 darktheme(".dark-theme-btn", "dark-mode");
+networkStatus();
