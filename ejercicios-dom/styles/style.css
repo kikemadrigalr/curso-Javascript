@@ -354,3 +354,18 @@ input[type="url"] {
   opacity: 1;
   transform: translate(0, 0vh);
 }
+
+/* **********Acceder a Camara Web********** */
+#snap {
+  padding: 1rem;
+  font-weight: bold;
+  color: var(--secondary-font-color);
+  background-color: #4caf50;
+  border: none;
+  border-radius: 0.2rem;
+  cursor: pointer;
+}
+
+#cam-video {
+  display: none;
+}

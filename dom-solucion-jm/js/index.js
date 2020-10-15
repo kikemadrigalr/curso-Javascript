@@ -7,6 +7,7 @@ import darktheme from "./dom/tema_oscuro.js";
 import responsiveMedia from "./dom/objeto_resposive.js";
 import responsiveTester from "./dom/prueba_responsive.js";
 import networkStatus from "./dom/deteccion_red.js";
+import webCam from "./dom/deteccion_webcam.js";
 
 const d = document;
 d.addEventListener("DOMContentLoaded", (e) => {
@@ -30,6 +31,7 @@ d.addEventListener("DOMContentLoaded", (e) => {
           width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" ></iframe>`
   );
   responsiveTester("responsive-tester");
+  webCam("webcam");
 });
 
 d.addEventListener("keydown", (e) => {
