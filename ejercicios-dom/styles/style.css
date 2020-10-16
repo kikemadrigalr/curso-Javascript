@@ -76,6 +76,7 @@ body {
   left: 0;
   background-color: var(--nav-background);
   overflow-x: hidden;
+  overflow-y: auto;
   transition: 0.8s;
   padding-top: 60px;
   text-align: center;
