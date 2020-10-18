@@ -2,7 +2,7 @@ export default function myGeolocation() {
   const $pLocation = document.getElementById("location");
 
   const location = (position) => {
-    console.log(position);
+    // console.log(position);
     let latitude = position.coords.latitude,
       longitude = position.coords.longitude,
       accuracy = position.coords.accuracy;

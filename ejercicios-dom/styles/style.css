@@ -370,3 +370,42 @@ input[type="url"] {
 #cam-video {
   display: none;
 }
+
+/* **********filtro de busqueda********** */
+#input-busqueda {
+  width: 50%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+#reset {
+  /* padding: 0.2rem; */
+  font-weight: bold;
+  margin-left: -40px;
+}
+
+.cards {
+  padding: 1rem;
+}
+
+.card {
+  display: inline-block;
+  background: var(--second-color);
+  color: var(--secondary-font-color);
+}
+
+.card figcaption {
+  padding: 1rem;
+  font-weight: bold;
+}
+
+.filter {
+  /* display: none; */
+  visibility: hidden;
+  opacity: 0;
+  order: 1;
+}

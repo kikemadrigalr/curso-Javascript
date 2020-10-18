@@ -10,6 +10,7 @@ import userDeviceInfo from "./deteccion_dispositivos.js";
 import networkStatus from "./deteccion_conexion.js";
 import mediaDevices from "./deteccion_webcam.js";
 import myGeolocation from "./geolocalización.js";
+import searchFilter from "./filtro_busqueda.js";
 
 document.addEventListener("DOMContentLoaded", (e) => {
   // localStorage.clear();
@@ -40,6 +41,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
   userDeviceInfo("user-device");
   mediaDevices("snap", "cam-video");
   myGeolocation();
+  searchFilter("input-busqueda", "reset", ".card");
 });
 
 isDarkMode("#btn-dark", "#btn-moon");
