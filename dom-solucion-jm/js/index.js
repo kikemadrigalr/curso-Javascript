@@ -10,6 +10,7 @@ import networkStatus from "./dom/deteccion_red.js";
 import webCam from "./dom/deteccion_webcam.js";
 import getGeolocation from "./dom/geolocalizacion.js";
 import searcFilter from "./dom/filtro_busqueda.js";
+import draw from "./dom/sorteo.js";
 
 const d = document;
 d.addEventListener("DOMContentLoaded", (e) => {
@@ -36,6 +37,7 @@ d.addEventListener("DOMContentLoaded", (e) => {
   webCam("webcam");
   getGeolocation("geolocation");
   searcFilter(".card-filter", ".card");
+  draw("#winer-btn", ".player");
 });
 
 d.addEventListener("keydown", (e) => {

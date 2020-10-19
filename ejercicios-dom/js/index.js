@@ -11,6 +11,7 @@ import networkStatus from "./deteccion_conexion.js";
 import mediaDevices from "./deteccion_webcam.js";
 import myGeolocation from "./geolocalización.js";
 import searchFilter from "./filtro_busqueda.js";
+import digitalGiveaway from "./sorteo_digital.js";
 
 document.addEventListener("DOMContentLoaded", (e) => {
   // localStorage.clear();
@@ -42,6 +43,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
   mediaDevices("snap", "cam-video");
   myGeolocation();
   searchFilter("input-busqueda", "reset", ".card");
+  digitalGiveaway("#sorteo", "listado");
 });
 
 isDarkMode("#btn-dark", "#btn-moon");

@@ -409,3 +409,23 @@ input[type="url"] {
   opacity: 0;
   order: 1;
 }
+
+/* **********Sorteo Digital********** */
+.sorteo {
+  padding: 1rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--secondary-font-color);
+  background-color: #4caf50;
+  border: none;
+  border-radius: 0.2rem;
+  cursor: pointer;
+}
+
+#listado {
+  list-style: none;
+  font-size: 1.5rem;
+  font-weight: bold;
+  line-height: 2rem;
+  padding: 0;
+}
