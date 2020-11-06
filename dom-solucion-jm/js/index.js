@@ -12,6 +12,7 @@ import getGeolocation from "./dom/geolocalizacion.js";
 import searcFilter from "./dom/filtro_busqueda.js";
 import draw from "./dom/sorteo.js";
 import slider from "./dom/carrusel.js";
+import smartVideo from "./dom/video_inteligente.js";
 
 const d = document;
 d.addEventListener("DOMContentLoaded", (e) => {
@@ -40,6 +41,7 @@ d.addEventListener("DOMContentLoaded", (e) => {
   searcFilter(".card-filter", ".card");
   draw("#winer-btn", ".player");
   slider();
+  smartVideo();
 });
 
 d.addEventListener("keydown", (e) => {

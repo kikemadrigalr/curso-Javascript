@@ -14,6 +14,7 @@ import searchFilter from "./filtro_busqueda.js";
 import digitalGiveaway from "./sorteo_digital.js";
 import slider from "./slider.js";
 import scrollSpy from "./scrollspy.js";
+import videoInteligent from "./inteligent_video.js";
 
 document.addEventListener("DOMContentLoaded", (e) => {
   // localStorage.clear();
@@ -48,6 +49,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
   digitalGiveaway("#sorteo", "listado");
   slider();
   scrollSpy();
+  videoInteligent("#video-intersection");
 });
 
 isDarkMode("#btn-dark", "#btn-moon");
