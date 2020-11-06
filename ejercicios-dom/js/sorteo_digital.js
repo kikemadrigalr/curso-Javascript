@@ -1,7 +1,7 @@
 export default function digitalGiveaway(btn, listado) {
   const $pListado = document.getElementById(listado),
     $spiner = document.querySelector(".fa-spinner");
-  console.log($pListado);
+  // console.log($pListado);
 
   const teams = [
     "Real Madrid",

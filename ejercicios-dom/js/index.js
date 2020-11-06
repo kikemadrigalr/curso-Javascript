@@ -12,6 +12,8 @@ import mediaDevices from "./deteccion_webcam.js";
 import myGeolocation from "./geolocalización.js";
 import searchFilter from "./filtro_busqueda.js";
 import digitalGiveaway from "./sorteo_digital.js";
+import slider from "./slider.js";
+import scrollSpy from "./scrollspy.js";
 
 document.addEventListener("DOMContentLoaded", (e) => {
   // localStorage.clear();
@@ -44,6 +46,8 @@ document.addEventListener("DOMContentLoaded", (e) => {
   myGeolocation();
   searchFilter("input-busqueda", "reset", ".card");
   digitalGiveaway("#sorteo", "listado");
+  slider();
+  scrollSpy();
 });
 
 isDarkMode("#btn-dark", "#btn-moon");
