@@ -562,36 +562,103 @@ input[type="url"] {
   }
 }
 
-/* .nav-spy {
-  width: 15rem;
-  right: 0;
-  height: 100%;
-  overflow-y: auto;
-  background-color: var(--secondary-color);
-  margin: 0;
-
-}
-.nav-spy ul {
-  padding: 0;
+/* **********Validacion Formularios********** */
+.contact-form {
+  --form-ok-color: #4caf50;
+  --form-error-color: #f44336;
+  width: 80%;
+  margin: auto;
+  /* background-color: red; */
 }
 
-.nav-spy ul li {
-  list-style: none;
-  margin-right: 0;
+/* .contact-form input[type="text"],
+input[type="email"],
+textarea { */
+.contact-form > * {
+  display: inline-block;
+  width: 100%;
+  margin: 5px;
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
 }
 
-.nav-spy ul li a {
-  text-decoration: none;
+.contact-form textarea {
+  resize: none;
+}
+
+.contact-form legend,
+.contact-form-response,
+.contact-form-loader {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+  border: none;
+}
+
+.contact-form input,
+.contact-form textarea {
+  font-size: 1rem;
+  font-family: sans-serif;
+}
+
+.contact-form input[type="submit"] {
+  width: 50%;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  display: inline-block;
+  background-color: #4caf50;
+  font-weight: bold;
+}
+
+.contact-form input[type="submit"]:hover {
+  background-color: #45a049;
+}
+
+.contact-form *::placeholder {
+  color: #000;
+}
+
+.contact-form [required]:valid {
+  border: thin solid var(--form-ok-color);
+}
+
+.contact-form [required]:invalid {
+  border: thin solid var(--form-error-color);
+}
+
+.contact-form-error {
+  /* width: 100%; */
+  margin-top: -1rem;
+  /* font-size: 80%; */
+  background-color: var(--form-error-color);
   color: var(--secondary-font-color);
-  font-size: 16px;
-  padding: 1rem;
-  display: block;
-  font-weight: bold;
+  transition: all 800ms ease;
+  padding: 10px;
 }
 
-.nav-spy ul li a:hover {
-  background-color: var(--main-color);
-  opacity: 0.8;
-  color: var(--secondary-color);
-  font-weight: bold;
-} */
+.contact-form-error.is-active {
+  display: block;
+  animation: show-message 1s 1 normal 0s ease-out both;
+}
+
+.none {
+  display: none;
+}
+
+@keyframes show-message {
+  0% {
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  100% {
+    visibility: visible;
+    opacity: 1;
+  }
+}

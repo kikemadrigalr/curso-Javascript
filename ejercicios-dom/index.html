@@ -39,7 +39,8 @@
         <li><a href="#section-9" data-scroll-spy>Filtro de Busqueda</a></li>
         <li><a href="#section-10" data-scroll-spy>Sorteo Digital</a></li>
         <li><a href="#section-11" data-scroll-spy>Responsive Slider</a></li>
-        <li><a href="#section-12" data-scroll-spy>Video Inteligente</a></li>    
+        <li><a href="#section-12" data-scroll-spy>Video Inteligente</a></li>
+        <li><a href="#section-13" data-scroll-spy>Validación de Formularios</a></li>    
       </ul>
     </nav>
 
@@ -236,9 +237,35 @@
        
       </div>
 
-      <div id="section-12" class="section section-par">
+      <div id="section-12" class="section section-par" data-scroll-spy>
         <h2>Video Inteligente</h2>
         <video muted controls width="600" src="https://download.blender.org/peach/bigbuckbunny_movies/BigBuckBunny_320x180.mp4" id="video-intersection"></video>
+      </div>
+
+      <div id="section-13" class="section section-impar" data-scroll-spy>
+        <h2>Validación de Formularios</h2>
+
+        <form class="contact-form" action="https://formsubmit.co/carlosmad03@gmail.com" method="POST">
+          <!-- <legend>Envianos tus Comentarios</legend> -->
+          <input type="text" name="nombre" placeholder="Nombre" required pattern="^[A-Za-zÑñÁáÉéÍíÓóÚúû\s]+$" title="El nombre Solo acepta letras y espacios en blanco">
+
+          <input type="email" name="correo" placeholder="Email" required pattern="^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$" title="Email Incorrecto">
+
+          <input type="text" name="subject" placeholder="Asunto" required title="El Asunto es requerido">
+
+          <textarea name="comments" cols="30" rows="10" placeholder="Comentarios" required data-pattern="^.{1,255}$" title="Tu comentario no debe exceder los 255 caracteres"></textarea>
+
+          <div class="contact-form-loader none">
+            <img src="assets/SVG-Loaders-master/svg-loaders/spinning-circles.svg" alt="Cargando...">
+          </div>
+
+           <div class="contact-form-response none">
+            <p>Los datos han sido enviados</p>
+          </div>
+
+          <input type="submit" value="Enviar">
+         
+        </form>
       </div>
       
     </section>

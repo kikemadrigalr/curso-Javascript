@@ -15,6 +15,7 @@ import digitalGiveaway from "./sorteo_digital.js";
 import slider from "./slider.js";
 import scrollSpy from "./scrollspy.js";
 import videoInteligent from "./inteligent_video.js";
+import contactFormValidaion from "./validaciones_formulario.js";
 
 document.addEventListener("DOMContentLoaded", (e) => {
   // localStorage.clear();
@@ -50,6 +51,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
   slider();
   scrollSpy();
   videoInteligent("#video-intersection");
+  contactFormValidaion();
 });
 
 isDarkMode("#btn-dark", "#btn-moon");
