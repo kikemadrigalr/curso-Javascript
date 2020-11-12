@@ -16,6 +16,7 @@ import slider from "./slider.js";
 import scrollSpy from "./scrollspy.js";
 import videoInteligent from "./inteligent_video.js";
 import contactFormValidaion from "./validaciones_formulario.js";
+import speechText from "./narrador.js";
 
 document.addEventListener("DOMContentLoaded", (e) => {
   // localStorage.clear();
@@ -56,3 +57,4 @@ document.addEventListener("DOMContentLoaded", (e) => {
 
 isDarkMode("#btn-dark", "#btn-moon");
 networkStatus("on-line", "off-line");
+speechText();

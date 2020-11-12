@@ -662,3 +662,40 @@ textarea { */
     opacity: 1;
   }
 }
+
+/***********Narrador***********/
+.narrador {
+  width: 60%;
+  margin: auto;
+}
+
+.narrador > * {
+  display: inline-block;
+  width: 100%;
+  margin: 5px;
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+.narrador textarea {
+  resize: none;
+}
+
+.narrador button {
+  width: 50%;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  display: inline-block;
+  background-color: #4caf50;
+  font-weight: bold;
+}
+
+.narrador button:hover {
+  background-color: #45a049;
+}

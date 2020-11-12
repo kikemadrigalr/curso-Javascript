@@ -13,6 +13,7 @@ import searcFilter from "./dom/filtro_busqueda.js";
 import draw from "./dom/sorteo.js";
 import slider from "./dom/carrusel.js";
 import smartVideo from "./dom/video_inteligente.js";
+import speechReader from "./dom/narrador.js";
 
 const d = document;
 d.addEventListener("DOMContentLoaded", (e) => {
@@ -51,3 +52,4 @@ d.addEventListener("keydown", (e) => {
 
 darktheme(".dark-theme-btn", "dark-mode");
 networkStatus();
+speechReader();
