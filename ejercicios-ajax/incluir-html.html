@@ -5,9 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Incluir HTML con AJAX</title>
     <link rel="stylesheet" href="./css/style.css" />
+    <script src="./assets/include-html.js"></script>
   </head>
   <body>
+    <div data-include="./assets/header.html"></div>
     <main class="container"></main>
+    <div data-include="./assets/footer.html"></div>
 
     <script>
       const d = document,
@@ -35,28 +38,12 @@
         xhr.send();
       };
 
-      //cargar elementos comunes
-      const getCommonElements = () => {
-        getHtml({
-          url: "./header.html",
-          success: (html) => {
-            let $htmlHeader = d.createElement("header");
-            $htmlHeader.classList.add("header");
-            $htmlHeader.innerHTML = html;
-            $main.insertAdjacentElement("beforebegin", $htmlHeader);
-          },
-          error: (error) => $main.innerHTML`<h1>${error}</h1>`,
-        });
-      };
-
       d.addEventListener("DOMContentLoaded", (e) => {
         getHtml({
           url: "./assets/home.html",
           success: (html) => ($main.innerHTML = html),
           error: (error) => $main.innerHTML`<h1>${error}</h1>`,
         });
-
-        getCommonElements();
       });
 
       d.addEventListener("click", (e) => {
