@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pokémons</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+      integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+      crossorigin="anonymous"
+    />
+
+    <style>
+      html {
+        text-align: center;
+      }
+
+      .grid-fluid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        text-align: center;
+      }
+
+      .loader {
+        display: block;
+        margin: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Pokémons</h1>
+
+    <nav class="links"></nav>
+    <main class="grid-fluid"></main>
+
+    <script>
+      const d = document,
+        $main = d.querySelector("main"),
+        $links = d.querySelector(".links");
+
+      let pokeAPI = "https://pokeapi.co/api/v2/pokemon";
+
+      async function loadPokemons(url) {
+        try {
+          $main.innerHTML = `<img class="loader" src="../ejercicios-dom/assets/SVG-Loaders-master/svg-loaders/spinning-circles.svg" alt="Cargando..."/>`;
+
+          let resp = await fetch(url),
+            json = await resp.json(),
+            $template = "",
+            $prevLink,
+            $nextLink;
+
+          console.log(json);
+
+          if (!resp.ok)
+            throw { status: resp.status, statusText: resp.statusText };
+
+          for (let i = 0; i < json.results.length; i++) {
+            // console.log(json.results[i]);
+            try {
+              let resp = await fetch(json.results[i].url),
+                pokemon = await resp.json();
+
+              // console.log(pokemon);
+
+              if (!resp.ok)
+                throw { status: resp.status, statusText: resp.statusText };
+
+              $template += `<figure>
+                <img src="${pokemon.sprites.front_default}" alt="${pokemon.name}"/>
+                  <figcaption>${pokemon.name}</figcaption>
+                </figure>`;
+            } catch (error) {
+              console.log(error);
+
+              let message = error.statusText || "Ocurrio un Error";
+              $template += `<figure>
+                <figcaption>${error.status} ${message}</figcaption>
+                </figure>`;
+            }
+          }
+
+          $main.innerHTML = $template;
+          $prevLink = json.previous
+            ? `<a href="${json.previous}"><i class="fas fa-backward"></i></a>`
+            : "";
+          $nextLink = json.next
+            ? `<a href="${json.next}"><i class="fas fa-forward"></i></a>`
+            : "";
+          $links.innerHTML = $prevLink + " " + $nextLink;
+        } catch (error) {
+          let message = error.statusText || "Ocurrio un Error";
+          $main.innerHTML = `<p>Error ${error.status}: ${message}</p>`;
+        }
+      }
+
+      d.addEventListener("DOMContentLoaded", (e) => loadPokemons(pokeAPI));
+
+      d.addEventListener("click", (e) => {
+        if (e.target.matches(".links a i")) {
+          e.preventDefault();
+          // console.log(e.target.parentNode);
+          loadPokemons(e.target.parentNode.getAttribute("href"));
+        }
+      });
+    </script>
+  </body>
+</html>
