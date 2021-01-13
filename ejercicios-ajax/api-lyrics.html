@@ -42,16 +42,19 @@
       margin-bottom: 2rem;
     }
 
-    .main {
-      width: 90%;
-      margin: auto;
-      /* margin-top: 2rem; */
-      /* text-align: center; */
-    }
-
     .search-form {
       margin-bottom: 2rem;
     }
+
+    /* #no-loader {
+      display: none;
+      visibility: hidden;
+    }
+
+    #loader {
+      display: block;
+      visibility: visible;
+    } */
   </style>
   <body>
     <nav class="navbar navbar-light bg-light">
@@ -89,15 +92,19 @@
         </form>
       </section>
 
-      <section class="artist-lyrics">
+      <section class="main">
         <!-- <div id="loader" class="text-center">
           <div class="spinner-border text-primary" role="status">
             <span class="visually-hidden">Cargando...</span>
           </div>
         </div> -->
         <div class="row">
-          <div id="artist" class="col-sm-12 col-md-6">One of three columns</div>
-          <div id="lyrics" class="col-sm-12 col-md-6">One of three columns</div>
+          <div id="main_artist" class="col-sm-12 col-md-6">
+            One of three columns
+          </div>
+          <div id="main_lyrics" class="col-sm-12 col-md-6">
+            One of three columns
+          </div>
         </div>
       </section>
     </main>
@@ -111,14 +118,72 @@
 
     <script>
       const d = document,
-        $artist = d.getElementById("artist"),
-        $lyrics = d.getElementById("lyrics"),
+        $main = d.querySelector(".main"),
+        $artist = d.getElementById("main_artist"),
+        $lyrics = d.getElementById("main_lyric"),
         $artistFragment = d.createDocumentFragment(),
-        $lyricsFragment = d.createDocumentFragment();
+        $lyricsFragment = d.createDocumentFragment(),
+        fetchOptions = {
+          headers: {
+            Authorization: 1,
+          },
+        };
 
-      d.addEventListener("submit", async (e) => {
-        e.preventDefault();
-        console.log(e.target);
+      let artist, lyrics;
+
+      const request = (artistName, title) => {
+        // $main.innerHTML = `
+        //     <div id="loader" class="text-center">
+        //       <div class="spinner-border text-primary" role="status">
+        //         <span class="visually-hidden">Cargando...</span>
+        //       </div>
+        //     </div>`;
+
+        // fetch(`https://api.lyrics.ovh/v1/${artistName}/${title}`)
+        //   .then((resp) => resp.json())
+        //   .then((json) => console.log(json))
+        //   .catch((error) => console.log(error));
+
+        Promise.all([
+          fetch(
+            `https://theaudiodb.com/api/v1/json/1/search.php?s=${artistName}`
+          ),
+          fetch(`https://api.lyrics.ovh/v1/${artistName}/${title}`),
+        ])
+          .then((responses) => {
+            // Promise.all(responses.map((resp) => resp.json()));
+            responses.map((resp) => resp.json());
+            // console.log(responses);
+          })
+          .then((json) => {
+            console.log(json);
+          })
+          .catch((error) => {
+            console.error(error);
+            let message =
+              error.statusText || "Ocurrio un error al conectarse al API";
+            $main.innerHTML = `<p>Error ${error.status}: ${message}</p>`;
+          });
+      };
+
+      d.addEventListener("submit", (e) => {
+        // console.log(e.target);
+        // console.log(e.target.artist.value);
+
+        if (e.target.matches("#search")) {
+          e.preventDefault();
+          // alert("search");
+          $main.innerHTML = `
+            <div id="loader" class="text-center">
+              <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Cargando...</span>
+              </div>
+            </div>`;
+
+          let artistName = e.target.artist.value,
+            title = e.target.title.value;
+          request(artistName, title);
+        }
       });
     </script>
   </body>
