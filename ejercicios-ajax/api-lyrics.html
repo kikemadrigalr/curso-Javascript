@@ -46,12 +46,22 @@
       margin-bottom: 2rem;
     }
 
-    /* #no-loader {
+    .no-loader {
       display: none;
       visibility: hidden;
     }
 
-    #loader {
+    #main-lyrics .card:last-child p.card-text {
+      white-space: pre-wrap;
+    }
+
+    @media (max-width: 800px) {
+      input[type="text"] {
+        margin-bottom: 1rem;
+      }
+    }
+
+    /* #loader {
       display: block;
       visibility: visible;
     } */
@@ -67,7 +77,7 @@
       <section class="search-form">
         <form id="search">
           <div class="row">
-            <div class="col-md-5">
+            <div class="col-sm-12 col-md-5">
               <input
                 type="text"
                 class="form-control"
@@ -76,7 +86,7 @@
                 name="artist"
               />
             </div>
-            <div class="col-md-5">
+            <div class="col-sm-12 col-md-5">
               <input
                 type="text"
                 class="form-control"
@@ -85,7 +95,7 @@
                 name="title"
               />
             </div>
-            <div class="col-md-2">
+            <div class="col-sm-12 col-md-2">
               <input type="submit" value="Search" class="btn btn-primary" />
             </div>
           </div>
@@ -93,17 +103,17 @@
       </section>
 
       <section class="main">
-        <!-- <div id="loader" class="text-center">
+        <div id="loader" class="text-center no-loader">
           <div class="spinner-border text-primary" role="status">
             <span class="visually-hidden">Cargando...</span>
           </div>
-        </div> -->
+        </div>
         <div class="row">
           <div id="main_artist" class="col-sm-12 col-md-6">
-            One of three columns
+            <!-- Artist info -->
           </div>
           <div id="main_lyrics" class="col-sm-12 col-md-6">
-            One of three columns
+            <!-- cancion info -->
           </div>
         </div>
       </section>
@@ -118,52 +128,109 @@
 
     <script>
       const d = document,
+        $loader = d.getElementById("loader"),
         $main = d.querySelector(".main"),
         $artist = d.getElementById("main_artist"),
-        $lyrics = d.getElementById("main_lyric"),
-        $artistFragment = d.createDocumentFragment(),
-        $lyricsFragment = d.createDocumentFragment(),
-        fetchOptions = {
-          headers: {
-            Authorization: 1,
-          },
-        };
+        $lyrics = d.getElementById("main_lyrics");
 
-      let artist, lyrics;
+      let $artistTemplate = "",
+        $lyricsTemplate = "";
 
-      const request = (artistName, title) => {
-        // $main.innerHTML = `
-        //     <div id="loader" class="text-center">
-        //       <div class="spinner-border text-primary" role="status">
-        //         <span class="visually-hidden">Cargando...</span>
-        //       </div>
-        //     </div>`;
+      const request = async (artistName, title) => {
+        try {
+          $loader.classList.remove("no-loader");
 
-        // fetch(`https://api.lyrics.ovh/v1/${artistName}/${title}`)
-        //   .then((resp) => resp.json())
-        //   .then((json) => console.log(json))
-        //   .catch((error) => console.log(error));
+          let APIArtist = `https://theaudiodb.com/api/v1/json/1/search.php?s=${artistName}`,
+            APILyrics = `https://api.lyrics.ovh/v1/${artistName}/${title}`;
 
-        Promise.all([
-          fetch(
-            `https://theaudiodb.com/api/v1/json/1/search.php?s=${artistName}`
-          ),
-          fetch(`https://api.lyrics.ovh/v1/${artistName}/${title}`),
-        ])
-          .then((responses) => {
-            // Promise.all(responses.map((resp) => resp.json()));
-            responses.map((resp) => resp.json());
-            // console.log(responses);
-          })
-          .then((json) => {
-            console.log(json);
-          })
-          .catch((error) => {
-            console.error(error);
-            let message =
-              error.statusText || "Ocurrio un error al conectarse al API";
-            $main.innerHTML = `<p>Error ${error.status}: ${message}</p>`;
-          });
+          let [artistResponse, LyricsResponse] = await Promise.all([
+              fetch(APIArtist),
+              fetch(APILyrics),
+            ]),
+            artistData = await artistResponse.json(),
+            lyricsData = await LyricsResponse.json();
+
+          // console.log(artistData, lyricsData);
+
+          if (artistData.artists === null) {
+            // console.error("No existe");
+            $artistTemplate = `<div class="alert alert-info" role="alert">
+                                    No se Encuentra el Artista <b>${artistName.toUpperCase()}</b>
+                              </div>`;
+          } else {
+            // console.info(artistData.artists[0]);
+            let artist = artistData.artists[0];
+
+            $artistTemplate = `
+              <div class="card mb-3" style="max-width: 540px;">
+                <div class="row g-0">
+                  <div class="col-md-4">
+                    <img src="${artist.strArtistThumb}" 
+                    alt="${artist.strArtist}" class="img-fluid">
+                  </div>
+                  <div class="col-md-8">
+                    <div class="card-body">
+                      <h5 class="card-title">${artist.strArtist}</h5>
+                      <p class="card-text">${artist.strCountry} <br>
+                        ${artist.intBornYear} - 
+                        ${artist.intDiedYear || "Presente"}
+                        </p>
+                      <p class="card-text"><small class="text-muted">
+                        <a href="https://${
+                          artist.strWebsite
+                        }" target='_blank'>Sitio Web</a></small></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card text-dark bg-light mb-3 col-lg-12">
+                <div class="card-header">
+                  <b>${artist.strArtist}</b>
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title">Biography</h5>
+                  <p class="card-text" style="text-align: justify;">${
+                    artist.strBiographyEN
+                  }</p>
+                </div>
+              </div>
+            `;
+          }
+
+          if (lyricsData.lyrics == "" || lyricsData.error) {
+            // console.error("no esta");
+            $lyricsTemplate = `<div class="alert alert-info" role="alert">
+                                    No se Encuentra la canción <b>${title.toUpperCase()}</b>
+                              </div>`;
+          } else {
+            // console.info(lyricsData.lyrics);
+
+            $lyricsTemplate = `
+            <div class="card text-dark bg-light mb-3 col-lg-12">
+                <div class="card-header">
+                  ${title.toUpperCase()}
+                </div>
+                <div class="card-body">
+                  <p class="card-text" style="white-space: pre-wrap;">${
+                    lyricsData.lyrics
+                  }</p>
+                </div>
+              </div>`;
+          }
+
+          $loader.classList.add("no-loader");
+          $artist.innerHTML = $artistTemplate;
+          $lyrics.innerHTML = $lyricsTemplate;
+        } catch (error) {
+          // console.log(error);
+          $loader.style.display = "none";
+          let message =
+            error.statusText || "Ocurrio un error al conectarse al API";
+          $main.innerHTML = `<div class="alert alert-danger" role="alert">
+                                Error ${error.status}: ${message}
+                              </div>`;
+        }
       };
 
       d.addEventListener("submit", (e) => {
@@ -172,16 +239,10 @@
 
         if (e.target.matches("#search")) {
           e.preventDefault();
-          // alert("search");
-          $main.innerHTML = `
-            <div id="loader" class="text-center">
-              <div class="spinner-border text-primary" role="status">
-                <span class="visually-hidden">Cargando...</span>
-              </div>
-            </div>`;
 
-          let artistName = e.target.artist.value,
-            title = e.target.title.value;
+          let artistName = e.target.artist.value.toLowerCase(),
+            title = e.target.title.value.toLowerCase();
+          // console.log(artistName, title);
           request(artistName, title);
         }
       });
