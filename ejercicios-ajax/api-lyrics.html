@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Buscador de Letras</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+      crossorigin="anonymous"
+    />
+  </head>
+  <style>
+    html {
+      box-sizing: border-box;
+      font-family: var(--main-font);
+      font-size: var(--font-size);
+      scroll-behavior: smooth;
+    }
+
+    *,
+    *:before,
+    *:after {
+      box-sizing: inherit;
+    }
+
+    body {
+      margin: 0;
+      overflow-x: hidden;
+      height: calc(100vh - 50px);
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .navbar {
+      margin-bottom: 2rem;
+      background-color: #00112c;
+    }
+
+    .search-form {
+      margin-bottom: 2rem;
+    }
+
+    .no-loader {
+      display: none;
+      visibility: hidden;
+    }
+
+    #banner img {
+      width: 100%;
+      margin-top: 5px;
+      margin-bottom: 10px;
+    }
+
+    #main-lyrics .card:last-child p.card-text {
+      white-space: pre-wrap;
+    }
+
+    @media (max-width: 800px) {
+      input[type="text"] {
+        margin-bottom: 1rem;
+      }
+    }
+  </style>
+  <body>
+    <nav class="navbar navbar-dark bg-dark">
+      <div class="container-fluid">
+        <span class="navbar-brand mb-0 h1">Lyrics</span>
+      </div>
+    </nav>
+
+    <main class="container">
+      <section class="search-form">
+        <form id="search">
+          <div class="row">
+            <div class="col-sm-12 col-md-5">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Artist"
+                aria-label="Artist"
+                name="artist"
+              />
+            </div>
+            <div class="col-sm-12 col-md-5">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Title"
+                aria-label="title"
+                name="title"
+              />
+            </div>
+            <div class="col-sm-12 col-md-2">
+              <input type="submit" value="Search" class="btn btn-primary" />
+            </div>
+          </div>
+        </form>
+      </section>
+
+      <section class="main">
+        <div id="loader" class="text-center no-loader">
+          <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Cargando...</span>
+          </div>
+        </div>
+        <div class="row" id="banner">
+          <div class="col-lg-12">
+            <img />
+          </div>
+        </div>
+        <div class="row">
+          <div id="main_artist" class="col-sm-12 col-md-6">
+            <!-- Artist info -->
+          </div>
+          <div id="main_lyrics" class="col-sm-12 col-md-6">
+            <!-- cancion info -->
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- JavaScript Bundle with Popper -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+      crossorigin="anonymous"
+    ></script>
+
+    <script>
+      const d = document,
+        $loader = d.getElementById("loader"),
+        $main = d.querySelector(".main"),
+        $artist = d.getElementById("main_artist"),
+        $lyrics = d.getElementById("main_lyrics"),
+        $banner = d.querySelector("#banner img");
+
+      let $artistTemplate = "",
+        $lyricsTemplate = "",
+        $albumsTemplate = "";
+
+      const request = async (artistName, title) => {
+        try {
+          $loader.classList.remove("no-loader");
+
+          let APIArtist = `https://theaudiodb.com/api/v1/json/1/search.php?s=${artistName}`,
+            APILyrics = `https://api.lyrics.ovh/v1/${artistName}/${title}`,
+            APIAlbums = `https://theaudiodb.com/api/v1/json/1/searchalbum.php?s=${artistName}`;
+
+          let [
+              artistResponse,
+              LyricsResponse,
+              almbumsResponse,
+            ] = await Promise.all([
+              fetch(APIArtist),
+              fetch(APILyrics),
+              fetch(APIAlbums),
+            ]),
+            artistData = await artistResponse.json(),
+            lyricsData = await LyricsResponse.json(),
+            albumsData = await almbumsResponse.json();
+
+          console.log(artistData, lyricsData, albumsData);
+
+          if (artistData.artists === null) {
+            $artistTemplate = `<div class="alert alert-info" role="alert">
+                                    No se Encuentra el Artista <b>${artistName.toUpperCase()}</b>
+                              </div>`;
+          } else {
+            // console.info(artistData.artists[0]);
+            let artist = artistData.artists[0];
+
+            $artistTemplate = `
+              <div class="card mb-3" style="max-width: 540px;">
+                <div class="row g-0">
+                  <div class="col-md-4">
+                    <img src="${artist.strArtistThumb}" 
+                    alt="${artist.strArtist}" class="img-fluid">
+                  </div>
+                  <div class="col-md-8">
+                    <div class="card-body">
+                      <h5 class="card-title">${artist.strArtist}</h5>
+                      <p class="card-text">${artist.strCountry} <br>
+                        ${artist.intBornYear} - 
+                        ${artist.intDiedYear || "Presente"}
+                        </p>
+                      <p class="card-text"><small class="text-muted">
+                        <a href="https://${
+                          artist.strWebsite
+                        }" target='_blank'>Sitio Web</a></small></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card text-dark bg-light mb-3 col-lg-12">
+                <div class="card-header">
+                  <b>${artist.strArtist}</b>
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title">Biography</h5>
+                  <p class="card-text" style="text-align: justify;">${
+                    artist.strBiographyEN
+                  }</p>
+                </div>
+              </div>
+            `;
+
+            $banner.src = `${artist.strArtistBanner}`;
+            $banner.classList.add("img-thumbnail", "img-fluid");
+            $banner.alt = `${artist.strArtist}`;
+          }
+
+          if (lyricsData.lyrics == "" || lyricsData.error) {
+            $lyricsTemplate = `<div class="alert alert-info" role="alert">
+                                    No se Encuentra la canción <b>${title.toUpperCase()}</b>
+                              </div>`;
+          } else {
+            $lyricsTemplate = `
+            <div class="card text-dark bg-light mb-3 col-lg-12">
+                <div class="card-header">
+                  <b>${title.toUpperCase()}</b>
+                </div>
+                <div class="card-body">
+                  <p class="card-text" style="white-space: pre-wrap;">
+                    ${lyricsData.lyrics}
+                    </p>
+                </div>
+              </div>`;
+          }
+
+          if (albumsData.album != null) {
+            let albums = albumsData.album;
+            const noImagne = "./assets/imgages/no-image.png";
+            $albumsTemplate = `<div class="row row-cols-2 g-4">`;
+
+            albums.forEach((el) => {
+              $albumsTemplate += `
+                                <div class="col">
+                                  <div class="card">
+                                    <img src="${
+                                      el.strAlbumCDart
+                                        ? el.strAlbumCDart
+                                        : noImagne
+                                    }" 
+                                    class="card-img-top img-fluid" alt="${
+                                      el.strAlbum
+                                    }">
+                                    <div class="card-footer">
+                                      <h5 class="card-title text-center">${
+                                        el.strAlbum
+                                      }</h5>
+                                    </div>
+                                  </div>
+                                </div>`;
+            });
+          }
+
+          $loader.classList.add("no-loader");
+          $artist.innerHTML = $artistTemplate + $albumsTemplate + "</div/>";
+          $lyrics.innerHTML = $lyricsTemplate;
+          $albumsTemplate = "";
+        } catch (error) {
+          // console.log(error);
+          $loader.style.display = "none";
+          let message =
+            error.statusText || "Ocurrio un error al conectarse al API";
+          $main.innerHTML = `<div class="alert alert-danger" role="alert">
+                                Error ${error.status}: ${message}
+                              </div>`;
+        }
+      };
+
+      d.addEventListener("submit", (e) => {
+        // console.log(e.target);
+
+        if (e.target.matches("#search")) {
+          e.preventDefault();
+
+          let artistName = e.target.artist.value.toLowerCase(),
+            title = e.target.title.value.toLowerCase();
+          request(artistName, title);
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Selects Anidados - Api</title>
+    <style>
+      html {
+        box-sizing: border-box;
+        font-family: "sans-serif";
+        font-size: 16px;
+      }
+
+      /* todos los elementos heredan el box-sizing */
+      *,
+      *:before,
+      *:after {
+        box-sizing: inherit;
+      }
+
+      body {
+        margin: 0;
+        overflow-x: hidden; /*lo que se desborda en horizontal se oculta*/
+        margin: 0;
+        padding: 0;
+      }
+
+      main {
+        width: 100%;
+        margin: auto;
+      }
+
+      .container {
+        width: 60%;
+        margin: auto;
+        margin-top: 5rem;
+      }
+
+      .container select {
+        width: 100%;
+        padding: 0.5rem;
+        border-radius: 5px;
+        margin: 20px;
+        font-size: 16px;
+        font-weight: bold;
+      }
+
+      .container select:hover {
+        background-color: #f6f6f5;
+      }
+
+      .select-error {
+        border: 1px solid red;
+      }
+
+      .response-alert {
+        width: 100%;
+        padding: 0.5rem;
+        background-color: tomato;
+        color: white;
+        font-weight: bold;
+        font-size: 18px;
+        text-align: center;
+        border-radius: 15px;
+        margin: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="container">
+      <h1>Selects Anidados</h1>
+      <select name="estados" id="estados">
+        <option selected>Estados de Mexico</option>
+      </select>
+      <select name="municipios" id="municipios">
+        <option selected>Municipios</option>
+      </select>
+      <div class="response"></div>
+    </main>
+
+    <script>
+      const d = document,
+        $selectEstado = d.querySelector("#estados"),
+        $selectMunicipio = d.querySelector("#municipios"),
+        APIEstados = "https://api-sepomex.hckdrk.mx/query/get_estados",
+        $response = d.querySelector(".response");
+
+      // console.log($selectEstado, $selectMunicipio);
+
+      const loadEstados = async () => {
+        try {
+          let resp = await fetch(APIEstados),
+            json = await resp.json(),
+            estados = await json.response.estado;
+          console.log(resp);
+
+          if (!resp.ok)
+            throw { status: resp.status, statusText: resp.statusText };
+
+          for (let i = 0; i < estados.length; i++) {
+            // console.log(estados[i]);
+            let $option = d.createElement("option");
+            $option.innerText = estados[i];
+            $option.value = estados[i];
+            $selectEstado.insertAdjacentElement("beforeend", $option);
+          }
+        } catch (error) {
+          console.error(error);
+
+          let message =
+            error.statusText || "Ocurrio un error al enviar, Intenta de nuevo";
+          $response.innerHTML = `<p>Error ${error.status}: ${error.message}</p>`;
+
+          $selectEstado.classList.add("select-error");
+          $response.classList.add("response-alert");
+        }
+      };
+
+      const loadMunicipios = async (estado) => {
+        // console.log(estado);
+        // $selectMunicipio.innerHTML = "--SELECT--";
+        try {
+          let APIMunicipios = `https://api-sepomex.hckdrk.mx/query/get_municipio_por_estado/${estado}`;
+
+          let resp = await fetch(APIMunicipios),
+            json = await resp.json(),
+            municipios = await json.response.municipios;
+          console.log(municipios);
+
+          if (!resp.ok)
+            throw { status: resp.status, statusText: resp.statusText };
+
+          for (let i = 0; i < municipios.length; i++) {
+            // console.log(estados[i]);
+            let $option = d.createElement("option");
+            $option.innerText = municipios[i];
+            $option.value = municipios[i];
+            $selectMunicipio.insertAdjacentElement("beforeend", $option);
+          }
+        } catch (error) {
+          console.error(error);
+
+          let message =
+            error.statusText || "Ocurrio un error al enviar, Intenta de nuevo";
+          $response.innerHTML = `<p>Error ${error.status}: ${error.message}</p>`;
+
+          $selectMunicipio.classList.add("select-error");
+          $response.classList.add("response-alert");
+        }
+      };
+
+      d.addEventListener("change", (e) => {
+        if (e.target === $selectEstado) {
+          // console.log(e.target.value);
+          let estado = e.target.value;
+          $selectMunicipio.innerHTML = "";
+          loadMunicipios(estado);
+        }
+      });
+
+      loadEstados();
+    </script>
+  </body>
+</html>
