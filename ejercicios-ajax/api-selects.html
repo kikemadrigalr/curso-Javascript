@@ -75,6 +75,9 @@
       <select name="municipios" id="municipios">
         <option selected>Municipios</option>
       </select>
+      <select name="colonias" id="colonias">
+        <option selected>Colonias</option>
+      </select>
       <div class="response"></div>
     </main>
 
@@ -82,6 +85,7 @@
       const d = document,
         $selectEstado = d.querySelector("#estados"),
         $selectMunicipio = d.querySelector("#municipios"),
+        $selectColonias = d.querySelector("#colonias"),
         APIEstados = "https://api-sepomex.hckdrk.mx/query/get_estados",
         $response = d.querySelector(".response");
 
@@ -149,12 +153,51 @@
         }
       };
 
+      const loadColonias = async (municipio) => {
+        // console.log(municipio);
+        try {
+          let APIColonias = `https://api-sepomex.hckdrk.mx/query/get_colonia_por_municipio/${municipio}`;
+
+          let resp = await fetch(APIColonias),
+            json = await resp.json(),
+            colonias = await json.response.colonia;
+          console.log(json);
+
+          if (!resp.ok)
+            throw { status: resp.status, statusText: resp.statusText };
+
+          for (let i = 0; i < colonias.length; i++) {
+            // console.log(estados[i]);
+            let $option = d.createElement("option");
+            $option.innerText = colonias[i];
+            $option.value = colonias[i];
+            $selectColonias.insertAdjacentElement("beforeend", $option);
+          }
+        } catch (error) {
+          console.error(error);
+
+          let message =
+            error.statusText || "Ocurrio un error al enviar, Intenta de nuevo";
+          $response.innerHTML = `<p>Error ${error.status}: ${error.message}</p>`;
+
+          $selectColonias.classList.add("select-error");
+          $response.classList.add("response-alert");
+        }
+      };
+
       d.addEventListener("change", (e) => {
         if (e.target === $selectEstado) {
           // console.log(e.target.value);
           let estado = e.target.value;
           $selectMunicipio.innerHTML = "";
           loadMunicipios(estado);
+        }
+
+        if (e.target === $selectMunicipio) {
+          // alert("colonias");
+          let municipio = e.target.value;
+          $selectColonias.innerHTML = "";
+          loadColonias(municipio);
         }
       });
 
