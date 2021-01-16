@@ -96,7 +96,7 @@
           let resp = await fetch(APIEstados),
             json = await resp.json(),
             estados = await json.response.estado;
-          console.log(resp);
+          // console.log(resp);
 
           if (!resp.ok)
             throw { status: resp.status, statusText: resp.statusText };
@@ -129,7 +129,7 @@
           let resp = await fetch(APIMunicipios),
             json = await resp.json(),
             municipios = await json.response.municipios;
-          console.log(municipios);
+          // console.log(municipios);
 
           if (!resp.ok)
             throw { status: resp.status, statusText: resp.statusText };
