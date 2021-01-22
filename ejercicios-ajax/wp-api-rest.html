@@ -136,6 +136,7 @@
     </template>
     <script>
       const d = document,
+        w = window,
         $site = d.getElementById("site"),
         $post = d.getElementById("posts"),
         $loader = d.querySelector(".loader"),
@@ -148,6 +149,9 @@
         POSTS = `${API_WP}/posts?_embed`,
         PAGES = `${API_WP}/pages`,
         CATEGORIES = `${API_WP}/categories`;
+
+      let page = 1,
+        perPage = 5;
 
       // fetch(POSTS)
       //   .then((res) => (res.ok ? res.json() : Promise.reject(res)))
@@ -179,7 +183,7 @@
       function getPost() {
         $loader.style.display = "block";
 
-        fetch(POSTS)
+        fetch(`${POSTS}&page=${page}&per_page=${perPage}`)
           .then((res) => (res.ok ? res.json() : Promise.reject(res)))
           .then((json) => {
             console.log(json);
@@ -195,8 +199,11 @@
                 (el) => (tags += `<li>${el.name}</li>`)
               );
 
-              $template.querySelector(".post-image").src =
-                el._embedded["wp:featuredmedia"][0].source_url;
+              $template.querySelector(".post-image").src = el._embedded[
+                "wp:featuredmedia"
+              ]
+                ? el._embedded["wp:featuredmedia"][0].source_url
+                : "../ejercicios-ajax/assets/imgages/no-image.png";
               $template.querySelector(".post-image").alt = el.title.rendered;
               $template.querySelector(".post-title").innerHTML =
                 el.title.rendered;
@@ -243,6 +250,23 @@
       d.addEventListener("DOMContentLoaded", (e) => {
         getSiteData();
         getPost();
+      });
+
+      //scroll infinito
+      w.addEventListener("scroll", (e) => {
+        //destructuracion del objeto d.documentElement
+        //scrollTor Distancia que se aleja la barra de dezplazamiento del top
+        //clientHeiht altura del viewport
+        //scrollHeight total de distancia de scroll
+        const { scrollTop, clientHeight, scrollHeight } = d.documentElement;
+
+        // console.log(scrollTop, clientHeight, scrollHeight);
+
+        if (scrollTop + clientHeight >= scrollHeight) {
+          // console.log("cargar mas posts");
+          page++;
+          getPost();
+        }
       });
     </script>
   </body>
